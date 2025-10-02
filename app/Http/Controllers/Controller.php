@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 /**
  * @OA\Info(
  *      version="1.0.0",
- *      title="Laravel API",
- *      description="Laravel API Documentation",
+ *      title="Postal Registration API",
+ *      description="Postal Registration - Laravel API Documentation",
  * )
  *
  * @OA\SecurityScheme(

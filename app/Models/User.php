@@ -3,8 +3,6 @@
 namespace App\Models;
 
 use App\Enums\UserType;
-use Database\Factories\ProductFactory;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -13,17 +11,6 @@ use Illuminate\Support\Carbon;
 use Laravel\Sanctum\HasApiTokens;
 
 /**
- * @OA\Schema(
- *     schema="User",
- *     required={"id", "name", "email", "password"},
- *     @OA\Property(property="id", type="integer", example="3"),
- *     @OA\Property(property="name", type="string", example="user1"),
- *     @OA\Property(property="email", type="string", format="email", example="user1@example.com"),
- *     @OA\Property(property="created_at", type="string", format="date-time", example="2025-03-11 20:40:54"),
- *     @OA\Property(property="updated_at", type="string", format="date-time", example="2025-03-11 20:40:54"),
- *     @OA\Property(property="image", type="string", example="/users/images/user1.jpg")
- * )
- *
  * App\Models\User
  * @property int $id
  * @property string $name
