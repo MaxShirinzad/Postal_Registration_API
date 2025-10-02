@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\Api\PostalPackageController;
+use App\Http\Controllers\Api\ParcelController;
 use Illuminate\Support\Facades\Route;
 
 //-------------------------------------
-Route::get('/postal-packages', [PostalPackageController::class, 'index']);
-Route::post('/postal-packages', [PostalPackageController::class, 'store']);
+Route::get('/parcels', [ParcelController::class, 'index']);
+Route::post('/parcels', [ParcelController::class, 'store']);
 //------------------------------
 
 

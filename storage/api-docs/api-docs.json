@@ -11,44 +11,221 @@
         }
     ],
     "paths": {
-        "/postal-packages": {
+        "/parcels": {
             "get": {
                 "tags": [
-                    "Postal Packages"
+                    "Parcels"
                 ],
-                "summary": "List all postal-packages",
-                "operationId": "e3339a7df6604f8d48bbd3173326e427",
+                "summary": "Get list of parcels",
+                "operationId": "a147fca004df223388151902c8c104ed",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Items per page",
+                        "schema": {
+                            "type": "integer",
+                            "example": 15
+                        }
+                    },
+                    {
+                        "name": "tracking_code",
+                        "in": "query",
+                        "description": "Filter by tracking code",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sender_mobile",
+                        "in": "query",
+                        "description": "Filter by sender mobile",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "receiver_mobile",
+                        "in": "query",
+                        "description": "Filter by receiver mobile",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful operation",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/PostalPackageResource"
-                                    }
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "tracking_code": {
+                                                        "type": "string",
+                                                        "example": "TRK170420234567"
+                                                    },
+                                                    "weight": {
+                                                        "type": "number",
+                                                        "format": "float",
+                                                        "example": 2.5
+                                                    },
+                                                    "dimensions": {
+                                                        "properties": {
+                                                            "length": {
+                                                                "type": "number",
+                                                                "format": "float",
+                                                                "example": 30
+                                                            },
+                                                            "width": {
+                                                                "type": "number",
+                                                                "format": "float",
+                                                                "example": 20
+                                                            },
+                                                            "height": {
+                                                                "type": "number",
+                                                                "format": "float",
+                                                                "example": 15
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "sender": {
+                                                        "properties": {
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "علی رضایی"
+                                                            },
+                                                            "mobile": {
+                                                                "type": "string",
+                                                                "example": "09123456789"
+                                                            },
+                                                            "postal_code": {
+                                                                "type": "string",
+                                                                "example": "1234567890"
+                                                            },
+                                                            "address": {
+                                                                "type": "string",
+                                                                "example": "تهران، خیابان ولیعصر"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "receiver": {
+                                                        "properties": {
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "محمد حسینی"
+                                                            },
+                                                            "mobile": {
+                                                                "type": "string",
+                                                                "example": "09351234567"
+                                                            },
+                                                            "postal_code": {
+                                                                "type": "string",
+                                                                "example": "0987654321"
+                                                            },
+                                                            "address": {
+                                                                "type": "string",
+                                                                "example": "مشهد، بلوار وکیل آباد"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "example": "2024-01-01 12:00:00"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "example": "2024-01-01 12:00:00"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "meta": {
+                                            "properties": {
+                                                "current_page": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "last_page": {
+                                                    "type": "integer",
+                                                    "example": 5
+                                                },
+                                                "per_page": {
+                                                    "type": "integer",
+                                                    "example": 15
+                                                },
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": 75
+                                                },
+                                                "from": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "to": {
+                                                    "type": "integer",
+                                                    "example": 15
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "links": {
+                                            "properties": {
+                                                "first": {
+                                                    "type": "string",
+                                                    "example": "http://localhost:8000/api/parcels?page=1"
+                                                },
+                                                "last": {
+                                                    "type": "string",
+                                                    "example": "http://localhost:8000/api/parcels?page=5"
+                                                },
+                                                "prev": {
+                                                    "type": "string",
+                                                    "example": null
+                                                },
+                                                "next": {
+                                                    "type": "string",
+                                                    "example": "http://localhost:8000/api/parcels?page=2"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
                     }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
+                }
             },
             "post": {
                 "tags": [
-                    "Postal Packages"
+                    "Parcels"
                 ],
-                "summary": "Create a new postal package",
-                "operationId": "2d8913398e420dab45c64dd047235aea",
+                "summary": "Create a new parcel",
+                "operationId": "fd43541acb33cd637a05f78d7843cb7f",
                 "requestBody": {
+                    "description": "Parcel data with sender, receiver, weight and dimensions",
                     "required": true,
                     "content": {
                         "application/json": {
@@ -69,18 +246,22 @@
                                         ],
                                         "properties": {
                                             "name": {
+                                                "description": "Sender's full name (required)",
                                                 "type": "string",
                                                 "example": "علی رضایی"
                                             },
                                             "mobile": {
+                                                "description": "Sender's mobile number (required, format: 09xxxxxxxxx)",
                                                 "type": "string",
                                                 "example": "09123456789"
                                             },
                                             "postal_code": {
+                                                "description": "Sender's postal code (required, 10 digits)",
                                                 "type": "string",
                                                 "example": "1234567890"
                                             },
                                             "address": {
+                                                "description": "Sender's complete address (required)",
                                                 "type": "string",
                                                 "example": "تهران، خیابان ولیعصر"
                                             }
@@ -96,18 +277,22 @@
                                         ],
                                         "properties": {
                                             "name": {
+                                                "description": "Receiver's full name (required)",
                                                 "type": "string",
                                                 "example": "محمد حسینی"
                                             },
                                             "mobile": {
+                                                "description": "Receiver's mobile number (required, format: 09xxxxxxxxx)",
                                                 "type": "string",
                                                 "example": "09351234567"
                                             },
                                             "postal_code": {
+                                                "description": "Receiver's postal code (required, 10 digits)",
                                                 "type": "string",
                                                 "example": "0987654321"
                                             },
                                             "address": {
+                                                "description": "Receiver's complete address (required)",
                                                 "type": "string",
                                                 "example": "مشهد، بلوار وکیل آباد"
                                             }
@@ -115,6 +300,7 @@
                                         "type": "object"
                                     },
                                     "weight": {
+                                        "description": "Package weight in kilograms (required, min: 0.1, max: 100)",
                                         "type": "number",
                                         "format": "float",
                                         "example": 2.5
@@ -127,22 +313,30 @@
                                         ],
                                         "properties": {
                                             "length": {
+                                                "description": "Package length in cm (required, min: 1, max: 200)",
                                                 "type": "number",
                                                 "format": "float",
                                                 "example": 30
                                             },
                                             "width": {
+                                                "description": "Package width in cm (required, min: 1, max: 200)",
                                                 "type": "number",
                                                 "format": "float",
                                                 "example": 20
                                             },
                                             "height": {
+                                                "description": "Package height in cm (required, min: 1, max: 200)",
                                                 "type": "number",
                                                 "format": "float",
                                                 "example": 15
                                             }
                                         },
                                         "type": "object"
+                                    },
+                                    "tracking_code": {
+                                        "description": "Custom tracking code (optional - if not provided, system will generate one automatically)",
+                                        "type": "string",
+                                        "example": "TRKABC123DEF"
                                     }
                                 },
                                 "type": "object"
@@ -169,7 +363,7 @@
                                                 },
                                                 "tracking_code": {
                                                     "type": "string",
-                                                    "example": "TRK170420234567"
+                                                    "example": "TRKABC123DEF"
                                                 },
                                                 "created_at": {
                                                     "type": "string",
@@ -202,6 +396,13 @@
                                                         "type": "string",
                                                         "example": "فرمت شماره موبایل فرستنده صحیح نیست"
                                                     }
+                                                },
+                                                "weight": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "فیلد وزن الزامی است"
+                                                    }
                                                 }
                                             },
                                             "type": "object"
@@ -217,68 +418,6 @@
         }
     },
     "components": {
-        "schemas": {
-            "StorePostalPackageRequest": {
-                "required": [
-                    "name",
-                    "email",
-                    "password"
-                ],
-                "properties": {
-                    "name": {
-                        "type": "string",
-                        "example": "user1"
-                    },
-                    "email": {
-                        "type": "string",
-                        "format": "email",
-                        "example": "user1@example.com"
-                    },
-                    "password": {
-                        "type": "string",
-                        "format": "password",
-                        "example": "123123"
-                    },
-                    "image": {
-                        "type": "string",
-                        "example": "/users/images/user1.jpg"
-                    }
-                },
-                "type": "object"
-            },
-            "PostalPackageResource": {
-                "properties": {
-                    "id": {
-                        "type": "integer",
-                        "example": "3"
-                    },
-                    "name": {
-                        "type": "string",
-                        "example": "user1"
-                    },
-                    "email": {
-                        "type": "string",
-                        "format": "email",
-                        "example": "user1@example.com"
-                    },
-                    "created_at": {
-                        "type": "string",
-                        "format": "date-time",
-                        "example": "2025-03-11 20:40:54"
-                    },
-                    "updated_at": {
-                        "type": "string",
-                        "format": "date-time",
-                        "example": "2025-03-11 20:40:54"
-                    },
-                    "image": {
-                        "type": "string",
-                        "example": "/users/images/user1.jpg"
-                    }
-                },
-                "type": "object"
-            }
-        },
         "securitySchemes": {
             "bearerAuth": {
                 "type": "http",
@@ -288,8 +427,8 @@
     },
     "tags": [
         {
-            "name": "Postal Packages",
-            "description": "Postal Packages"
+            "name": "Parcels",
+            "description": "Parcels"
         }
     ]
 }

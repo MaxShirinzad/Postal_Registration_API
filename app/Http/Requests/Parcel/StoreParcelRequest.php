@@ -1,23 +1,13 @@
 <?php
 
-namespace App\Http\Requests\PostalPackage;
+namespace App\Http\Requests\Parcel;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Validation\Rule;
 
-/**
- * @OA\Schema(
- *     schema="StorePostalPackageRequest",
- *     required={"name", "email", "password"},
- *     @OA\Property(property="name", type="string", example="user1"),
- *     @OA\Property(property="email", type="string", format="email", example="user1@example.com"),
- *     @OA\Property(property="password", type="string", format="password", example="123123"),
- *     @OA\Property(property="image", type="string", example="/users/images/user1.jpg")
- * )
- */
-class StorePostalPackageRequest extends FormRequest
+class StoreParcelRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -50,6 +40,9 @@ class StorePostalPackageRequest extends FormRequest
             'dimensions.length' => 'required|numeric|min:1|max:200',
             'dimensions.width' => 'required|numeric|min:1|max:200',
             'dimensions.height' => 'required|numeric|min:1|max:200',
+
+            // اضافه کردن rule برای tracking_code اختیاری
+            'tracking_code' => 'nullable|string|max:50|unique:parcels,tracking_code',
         ];
     }
 
@@ -61,6 +54,7 @@ class StorePostalPackageRequest extends FormRequest
             'receiver.mobile.different' => 'شماره موبایل گیرنده باید با فرستنده متفاوت باشد',
             'sender.postal_code.regex' => 'فرمت کد پستی فرستنده باید 10 رقمی باشد',
             'receiver.postal_code.regex' => 'فرمت کد پستی گیرنده باید 10 رقمی باشد',
+            'tracking_code.unique' => 'این کد رهگیری قبلاً استفاده شده است',
         ];
     }
 
@@ -71,6 +65,4 @@ class StorePostalPackageRequest extends FormRequest
             'errors' => $validator->errors()
         ], 422));
     }
-
-
 }

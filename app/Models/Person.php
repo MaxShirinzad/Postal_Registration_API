@@ -18,13 +18,13 @@ class Person extends Model
         'address',
     ];
 
-    public function sentPostalPackages(): HasMany
+    public function sentParcel(): HasMany
     {
-        return $this->hasMany(PostalPackage::class, 'sender_id');
+        return $this->hasMany(Parcel::class, 'sender_id');
     }
 
-    public function receivedPostalPackages(): HasMany
+    public function receivedParcel(): HasMany
     {
-        return $this->hasMany(PostalPackage::class, 'receiver_id');
+        return $this->hasMany(Parcel::class, 'receiver_id');
     }
 }

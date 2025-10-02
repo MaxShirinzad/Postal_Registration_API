@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('postal_packages', function (Blueprint $table) {
+        Schema::create('parcels', function (Blueprint $table) {
             $table->Increments('id');
             //$table->unsignedInteger('user_id');
 
@@ -23,7 +23,7 @@ return new class extends Migration
             $table->decimal('width', 6, 2);
             $table->decimal('height', 6, 2);
             //$table->bigInteger('postage')->default(0);
-            $table->string('tracking_code')->unique()->nullable();
+            $table->string('tracking_code')->unique();
 
             $table->timestamps();
             $table->softDeletes();
