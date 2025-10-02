@@ -1,7 +1,7 @@
 markdown
-# 📮 Parcel API - سامانه ثبت مرسوله پستی
+# 📮 Postal Registration API - سامانه ثبت مرسوله پستی
 
-یک سرویس REST API کامل برای مدیریت مرسولات پستی با لاراول 12
+یک سرویس REST API کامل برای ذخیره و نمایش مرسولات پستی با لاراول 12
 
 ## ✨ ویژگی‌ها
 
@@ -38,6 +38,8 @@ composer install
 cp .env.example .env
 
 php artisan key:generate
+
+php artisan l5-swagger:generate
 
 ### 4. پیکربندی دیتابیس
 فایل .env را ویرایش کنید:
@@ -82,7 +84,7 @@ php artisan l5-swagger:generate
 
 Endpoint: POST /api/parcels
 
-Request Body:
+### Request Body:
 
 json
 {
@@ -106,7 +108,10 @@ json
   },
   "tracking_code": "608850418600032250068114"
 }
+
+
 Response Success (201):
+
 
 json
 {
@@ -142,7 +147,7 @@ json
 
 Endpoint: GET /api/parcels
 
-Query Parameters:
+### Query Parameters:
 
 page (اختیاری): شماره صفحه
 
@@ -210,8 +215,6 @@ json
 404 Not Found: مرسوله یافت نشد
 
 
-## 🎯 تست با Postman
-
 ## 1. راه‌اندازی سرور
 
 
@@ -247,40 +250,6 @@ Accept: application/json
   "tracking_code": "608850418600032250068114"
 }
 
-## 🗃 ساختار دیتابیس
-## جداول
-
-people
-id (Primary Key)
-
-name (نام)
-
-mobile (موبایل - Unique)
-
-postal_code (کد پستی)
-
-address (آدرس)
-
-timestamps
-
-parcels
-id (Primary Key)
-
-sender_id (Foreign Key → people.id)
-
-receiver_id (Foreign Key → people.id)
-
-weight (وزن)
-
-length (طول)
-
-width (عرض)
-
-height (ارتفاع)
-
-tracking_code (کد رهگیری - Unique)
-
-timestamps
 
 ## 🔒 اعتبارسنجی‌ها
 
@@ -314,6 +283,7 @@ timestamps
 ## 🏗 معماری پروژه
 
 
+
 app/
 ├── Http/
 │   ├── Controllers/
@@ -340,6 +310,9 @@ database/
 └── factories/
     ├── ParcelFactory.php
     └── PersonFactory.php
+	
+	
+	
 	
 ## 🚀 Deploy
 
