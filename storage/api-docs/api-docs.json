@@ -358,7 +358,78 @@
                                                     "type": "string",
                                                     "example": "6088-5041-8600-0322-5006-8114"
                                                 },
+                                                "weight": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": 2.5
+                                                },
+                                                "dimensions": {
+                                                    "properties": {
+                                                        "length": {
+                                                            "type": "number",
+                                                            "format": "float",
+                                                            "example": 30
+                                                        },
+                                                        "width": {
+                                                            "type": "number",
+                                                            "format": "float",
+                                                            "example": 20
+                                                        },
+                                                        "height": {
+                                                            "type": "number",
+                                                            "format": "float",
+                                                            "example": 15
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "sender": {
+                                                    "properties": {
+                                                        "name": {
+                                                            "type": "string",
+                                                            "example": "علی رضایی"
+                                                        },
+                                                        "mobile": {
+                                                            "type": "string",
+                                                            "example": "09123456789"
+                                                        },
+                                                        "postal_code": {
+                                                            "type": "string",
+                                                            "example": "1234567890"
+                                                        },
+                                                        "address": {
+                                                            "type": "string",
+                                                            "example": "تهران، خیابان ولیعصر"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "receiver": {
+                                                    "properties": {
+                                                        "name": {
+                                                            "type": "string",
+                                                            "example": "محمد حسینی"
+                                                        },
+                                                        "mobile": {
+                                                            "type": "string",
+                                                            "example": "09351234567"
+                                                        },
+                                                        "postal_code": {
+                                                            "type": "string",
+                                                            "example": "0987654321"
+                                                        },
+                                                        "address": {
+                                                            "type": "string",
+                                                            "example": "مشهد، بلوار وکیل آباد"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
                                                 "created_at": {
+                                                    "type": "string",
+                                                    "example": "2024-01-01 12:00:00"
+                                                },
+                                                "updated_at": {
                                                     "type": "string",
                                                     "example": "2024-01-01 12:00:00"
                                                 }

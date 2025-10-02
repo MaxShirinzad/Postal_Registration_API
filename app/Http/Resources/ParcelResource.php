@@ -12,6 +12,7 @@ class ParcelResource extends JsonResource
         return [
             'id' => $this->id,
             'tracking_code' => $this->tracking_code,
+            'formatted_tracking_code' => $this->formatted_tracking_code,
             'weight' => (float) $this->weight,
             'dimensions' => [
                 'length' => (float) $this->length,
