@@ -15,8 +15,8 @@ return new class extends Migration
             $table->Increments('id');
             $table->unsignedInteger('user_id');
 
-            $table->foreignId('sender_id')->constrained('people');
-            $table->foreignId('receiver_id')->constrained('people');
+            $table->unsignedInteger('sender_id');
+            $table->unsignedInteger('receiver_id');
 
             $table->decimal('weight', 8, 2);
             $table->decimal('length', 6, 2);
@@ -28,6 +28,8 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
 
+            $table->foreign('sender_id')->references('id')->on('people');
+            $table->foreign('receiver_id')->references('id')->on('people');
             $table->index('tracking_code');
             $table->index(['sender_id', 'receiver_id']);
         });
