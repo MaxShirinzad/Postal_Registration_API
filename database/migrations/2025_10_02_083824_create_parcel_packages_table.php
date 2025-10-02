@@ -23,7 +23,7 @@ return new class extends Migration
             $table->decimal('width', 6, 2);
             $table->decimal('height', 6, 2);
             //$table->bigInteger('postage')->default(0);
-            $table->string('tracking_code')->unique();
+            $table->string('tracking_code', 24)->unique();
 
             $table->timestamps();
             $table->softDeletes();

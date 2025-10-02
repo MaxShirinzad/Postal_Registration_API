@@ -225,7 +225,7 @@
                 "summary": "Create a new parcel",
                 "operationId": "fd43541acb33cd637a05f78d7843cb7f",
                 "requestBody": {
-                    "description": "Parcel data with sender, receiver, weight and dimensions",
+                    "description": "Parcel data with sender, receiver, weight, dimensions and tracking code",
                     "required": true,
                     "content": {
                         "application/json": {
@@ -234,7 +234,8 @@
                                     "sender",
                                     "receiver",
                                     "weight",
-                                    "dimensions"
+                                    "dimensions",
+                                    "tracking_code"
                                 ],
                                 "properties": {
                                     "sender": {
@@ -246,22 +247,18 @@
                                         ],
                                         "properties": {
                                             "name": {
-                                                "description": "Sender's full name (required)",
                                                 "type": "string",
                                                 "example": "علی رضایی"
                                             },
                                             "mobile": {
-                                                "description": "Sender's mobile number (required, format: 09xxxxxxxxx)",
                                                 "type": "string",
                                                 "example": "09123456789"
                                             },
                                             "postal_code": {
-                                                "description": "Sender's postal code (required, 10 digits)",
                                                 "type": "string",
                                                 "example": "1234567890"
                                             },
                                             "address": {
-                                                "description": "Sender's complete address (required)",
                                                 "type": "string",
                                                 "example": "تهران، خیابان ولیعصر"
                                             }
@@ -277,22 +274,18 @@
                                         ],
                                         "properties": {
                                             "name": {
-                                                "description": "Receiver's full name (required)",
                                                 "type": "string",
                                                 "example": "محمد حسینی"
                                             },
                                             "mobile": {
-                                                "description": "Receiver's mobile number (required, format: 09xxxxxxxxx)",
                                                 "type": "string",
                                                 "example": "09351234567"
                                             },
                                             "postal_code": {
-                                                "description": "Receiver's postal code (required, 10 digits)",
                                                 "type": "string",
                                                 "example": "0987654321"
                                             },
                                             "address": {
-                                                "description": "Receiver's complete address (required)",
                                                 "type": "string",
                                                 "example": "مشهد، بلوار وکیل آباد"
                                             }
@@ -300,7 +293,6 @@
                                         "type": "object"
                                     },
                                     "weight": {
-                                        "description": "Package weight in kilograms (required, min: 0.1, max: 100)",
                                         "type": "number",
                                         "format": "float",
                                         "example": 2.5
@@ -313,19 +305,16 @@
                                         ],
                                         "properties": {
                                             "length": {
-                                                "description": "Package length in cm (required, min: 1, max: 200)",
                                                 "type": "number",
                                                 "format": "float",
                                                 "example": 30
                                             },
                                             "width": {
-                                                "description": "Package width in cm (required, min: 1, max: 200)",
                                                 "type": "number",
                                                 "format": "float",
                                                 "example": 20
                                             },
                                             "height": {
-                                                "description": "Package height in cm (required, min: 1, max: 200)",
                                                 "type": "number",
                                                 "format": "float",
                                                 "example": 15
@@ -334,9 +323,9 @@
                                         "type": "object"
                                     },
                                     "tracking_code": {
-                                        "description": "Custom tracking code (optional - if not provided, system will generate one automatically)",
+                                        "description": "کد رهگیری 24 رقمی پستی ایران (الزامی)",
                                         "type": "string",
-                                        "example": "TRKABC123DEF"
+                                        "example": "608850418600032250068114"
                                     }
                                 },
                                 "type": "object"
@@ -363,7 +352,11 @@
                                                 },
                                                 "tracking_code": {
                                                     "type": "string",
-                                                    "example": "TRKABC123DEF"
+                                                    "example": "608850418600032250068114"
+                                                },
+                                                "formatted_tracking_code": {
+                                                    "type": "string",
+                                                    "example": "6088-5041-8600-0322-5006-8114"
                                                 },
                                                 "created_at": {
                                                     "type": "string",
@@ -390,18 +383,11 @@
                                         },
                                         "errors": {
                                             "properties": {
-                                                "sender.mobile": {
+                                                "tracking_code": {
                                                     "type": "array",
                                                     "items": {
                                                         "type": "string",
-                                                        "example": "فرمت شماره موبایل فرستنده صحیح نیست"
-                                                    }
-                                                },
-                                                "weight": {
-                                                    "type": "array",
-                                                    "items": {
-                                                        "type": "string",
-                                                        "example": "فیلد وزن الزامی است"
+                                                        "example": "کد رهگیری الزامی است"
                                                     }
                                                 }
                                             },

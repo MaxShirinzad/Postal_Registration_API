@@ -134,105 +134,41 @@ class ParcelController extends Controller
      *     tags={"Parcels"},
      *     @OA\RequestBody(
      *         required=true,
-     *         description="Parcel data with sender, receiver, weight and dimensions",
+     *         description="Parcel data with sender, receiver, weight, dimensions and tracking code",
      *         @OA\JsonContent(
-     *             required={"sender","receiver","weight","dimensions"},
+     *             required={"sender","receiver","weight","dimensions","tracking_code"},
      *             @OA\Property(
      *                 property="sender",
      *                 type="object",
      *                 required={"name","mobile","postal_code","address"},
-     *                 @OA\Property(
-     *                     property="name",
-     *                     type="string",
-     *                     example="علی رضایی",
-     *                     description="Sender's full name (required)"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="mobile",
-     *                     type="string",
-     *                     example="09123456789",
-     *                     description="Sender's mobile number (required, format: 09xxxxxxxxx)"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="postal_code",
-     *                     type="string",
-     *                     example="1234567890",
-     *                     description="Sender's postal code (required, 10 digits)"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="address",
-     *                     type="string",
-     *                     example="تهران، خیابان ولیعصر",
-     *                     description="Sender's complete address (required)"
-     *                 )
+     *                 @OA\Property(property="name", type="string", example="علی رضایی"),
+     *                 @OA\Property(property="mobile", type="string", example="09123456789"),
+     *                 @OA\Property(property="postal_code", type="string", example="1234567890"),
+     *                 @OA\Property(property="address", type="string", example="تهران، خیابان ولیعصر")
      *             ),
      *             @OA\Property(
      *                 property="receiver",
      *                 type="object",
      *                 required={"name","mobile","postal_code","address"},
-     *                 @OA\Property(
-     *                     property="name",
-     *                     type="string",
-     *                     example="محمد حسینی",
-     *                     description="Receiver's full name (required)"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="mobile",
-     *                     type="string",
-     *                     example="09351234567",
-     *                     description="Receiver's mobile number (required, format: 09xxxxxxxxx)"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="postal_code",
-     *                     type="string",
-     *                     example="0987654321",
-     *                     description="Receiver's postal code (required, 10 digits)"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="address",
-     *                     type="string",
-     *                     example="مشهد، بلوار وکیل آباد",
-     *                     description="Receiver's complete address (required)"
-     *                 )
+     *                 @OA\Property(property="name", type="string", example="محمد حسینی"),
+     *                 @OA\Property(property="mobile", type="string", example="09351234567"),
+     *                 @OA\Property(property="postal_code", type="string", example="0987654321"),
+     *                 @OA\Property(property="address", type="string", example="مشهد، بلوار وکیل آباد")
      *             ),
-     *             @OA\Property(
-     *                 property="weight",
-     *                 type="number",
-     *                 format="float",
-     *                 example=2.5,
-     *                 description="Package weight in kilograms (required, min: 0.1, max: 100)"
-     *             ),
+     *             @OA\Property(property="weight", type="number", format="float", example=2.5),
      *             @OA\Property(
      *                 property="dimensions",
      *                 type="object",
      *                 required={"length","width","height"},
-     *                 @OA\Property(
-     *                     property="length",
-     *                     type="number",
-     *                     format="float",
-     *                     example=30,
-     *                     description="Package length in cm (required, min: 1, max: 200)"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="width",
-     *                     type="number",
-     *                     format="float",
-     *                     example=20,
-     *                     description="Package width in cm (required, min: 1, max: 200)"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="height",
-     *                     type="number",
-     *                     format="float",
-     *                     example=15,
-     *                     description="Package height in cm (required, min: 1, max: 200)"
-     *                 )
+     *                 @OA\Property(property="length", type="number", format="float", example=30),
+     *                 @OA\Property(property="width", type="number", format="float", example=20),
+     *                 @OA\Property(property="height", type="number", format="float", example=15)
      *             ),
      *             @OA\Property(
      *                 property="tracking_code",
      *                 type="string",
-     *                 example="TRKABC123DEF",
-     *                 description="Custom tracking code (optional - if not provided, system will generate one automatically)"
+     *                 example="608850418600032250068114",
+     *                 description="کد رهگیری 24 رقمی پستی ایران (الزامی)"
      *             )
      *         )
      *     ),
@@ -245,7 +181,8 @@ class ParcelController extends Controller
      *                 property="data",
      *                 type="object",
      *                 @OA\Property(property="id", type="integer", example=1),
-     *                 @OA\Property(property="tracking_code", type="string", example="TRKABC123DEF"),
+     *                 @OA\Property(property="tracking_code", type="string", example="608850418600032250068114"),
+     *                 @OA\Property(property="formatted_tracking_code", type="string", example="6088-5041-8600-0322-5006-8114"),
      *                 @OA\Property(property="created_at", type="string", example="2024-01-01 12:00:00")
      *             )
      *         )
@@ -259,14 +196,9 @@ class ParcelController extends Controller
      *                 property="errors",
      *                 type="object",
      *                 @OA\Property(
-     *                     property="sender.mobile",
+     *                     property="tracking_code",
      *                     type="array",
-     *                     @OA\Items(type="string", example="فرمت شماره موبایل فرستنده صحیح نیست")
-     *                 ),
-     *                 @OA\Property(
-     *                     property="weight",
-     *                     type="array",
-     *                     @OA\Items(type="string", example="فیلد وزن الزامی است")
+     *                     @OA\Items(type="string", example="کد رهگیری الزامی است")
      *                 )
      *             )
      *         )
@@ -298,34 +230,31 @@ class ParcelController extends Controller
                 ]
             );
 
-            // ایجاد مرسوله با tracking_code دلخواه یا تولید خودکار
-            $parcelData = [
+            // ایجاد مرسوله - tracking_code اجباری است و از کاربر دریافت می‌شود
+            $parcel = Parcel::create([
                 'sender_id' => $sender->id,
                 'receiver_id' => $receiver->id,
                 'weight' => $validated['weight'],
                 'length' => $validated['dimensions']['length'],
                 'width' => $validated['dimensions']['width'],
                 'height' => $validated['dimensions']['height'],
-            ];
-
-            // اگر tracking_code توسط کاربر ارسال شده باشد، از آن استفاده کن
-            if (isset($validated['tracking_code']) && !empty($validated['tracking_code'])) {
-                $parcelData['tracking_code'] = $validated['tracking_code'];
-            }
-
-            $parcel = Parcel::create($parcelData);
+                'tracking_code' => $validated['tracking_code'], // اجباری
+            ]);
 
             return response()->json([
                 'message' => 'Parcel created successfully',
                 'data' => [
                     'id' => $parcel->id,
                     'tracking_code' => $parcel->tracking_code,
+                    'formatted_tracking_code' => $parcel->formatted_tracking_code,
                     'created_at' => $parcel->created_at->toDateTimeString(),
                 ]
             ], 201);
         });
-
     }
+
+
+
 
 }
 

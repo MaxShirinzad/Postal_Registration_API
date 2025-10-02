@@ -9,7 +9,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Parcel extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, softDeletes;
+
     protected $fillable = [
         'sender_id',
         'receiver_id',
@@ -17,7 +18,6 @@ class Parcel extends Model
         'length',
         'width',
         'height',
-        //'postage',
         'tracking_code',
     ];
 
@@ -38,5 +38,31 @@ class Parcel extends Model
         return $this->belongsTo(Person::class, 'receiver_id');
     }
 
+    protected static function boot()
+    {
+        parent::boot();
 
+        //  بررسی یکتایی کد رهگیری
+        static::creating(function ($parcel) {
+            if (static::where('tracking_code', $parcel->tracking_code)->exists()) {
+                throw new \Exception('این کد رهگیری قبلاً استفاده شده است');
+            }
+        });
+    }
+
+    /**
+     * اعتبارسنجی فرمت کد رهگیری
+     */
+    public static function isValidIranianTrackingCode(string $code): bool
+    {
+        return preg_match('/^\d{24}$/', $code) === 1;
+    }
+
+    /**
+     * فرمت کردن کد رهگیری برای نمایش (هر 4 رقم با - جدا شود)
+     */
+    public function getFormattedTrackingCodeAttribute(): string
+    {
+        return implode('-', str_split($this->tracking_code, 4));
+    }
 }

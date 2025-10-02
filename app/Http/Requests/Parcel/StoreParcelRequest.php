@@ -41,7 +41,13 @@ class StoreParcelRequest extends FormRequest
             'dimensions.width' => 'required|numeric|min:1|max:200',
             'dimensions.height' => 'required|numeric|min:1|max:200',
 
-            'tracking_code' => 'required|string|max:50|unique:parcels,tracking_code',
+            'tracking_code' => [
+                'required',
+                'string',
+                'size:24',
+                'regex:/^\d{24}$/',
+                'unique:parcels,tracking_code'
+            ],
         ];
     }
 
@@ -53,6 +59,9 @@ class StoreParcelRequest extends FormRequest
             'receiver.mobile.different' => 'شماره موبایل گیرنده باید با فرستنده متفاوت باشد',
             'sender.postal_code.regex' => 'فرمت کد پستی فرستنده باید 10 رقمی باشد',
             'receiver.postal_code.regex' => 'فرمت کد پستی گیرنده باید 10 رقمی باشد',
+            'tracking_code.required' => 'کد رهگیری الزامی است',
+            'tracking_code.size' => 'کد رهگیری باید دقیقاً 24 رقم باشد',
+            'tracking_code.regex' => 'کد رهگیری باید فقط شامل اعداد باشد',
             'tracking_code.unique' => 'این کد رهگیری قبلاً استفاده شده است',
         ];
     }
