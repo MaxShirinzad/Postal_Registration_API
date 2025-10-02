@@ -41,8 +41,7 @@ class StoreParcelRequest extends FormRequest
             'dimensions.width' => 'required|numeric|min:1|max:200',
             'dimensions.height' => 'required|numeric|min:1|max:200',
 
-            // اضافه کردن rule برای tracking_code اختیاری
-            'tracking_code' => 'nullable|string|max:50|unique:parcels,tracking_code',
+            'tracking_code' => 'required|string|max:50|unique:parcels,tracking_code',
         ];
     }
 
