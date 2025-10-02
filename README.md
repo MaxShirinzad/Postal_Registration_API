@@ -24,17 +24,22 @@ markdown
 
 ### 1. کلون کردن پروژه
 
-```bash
+
 git clone [repository-url]
+
 cd parcel-api
-2. نصب dependencyها
-bash
+
+### 2. نصب dependencyها 
+
 composer install
-3. تنظیم محیط
-bash
+
+### 3. تنظیم محیط
+
 cp .env.example .env
+
 php artisan key:generate
-4. پیکربندی دیتابیس
+
+### 4. پیکربندی دیتابیس
 فایل .env را ویرایش کنید:
 
 env
@@ -44,34 +49,37 @@ DB_PORT=3306
 DB_DATABASE=parcel_api
 DB_USERNAME=root
 DB_PASSWORD=
-5. اجرای migrations
-bash
-php artisan migrate
-6. تولید مستندات Swagger
-bash
-php artisan l5-swagger:generate
-🧪 اجرای تست‌ها
-اجرای تمام تست‌ها
-bash
-./vendor/bin/pest
-اجرای تست‌های خاص
-bash
-# تست‌های Feature
-./vendor/bin/pest tests/Feature
 
-# تست‌های Unit
-./vendor/bin/pest tests/Unit
-📚 مستندات API
+
+### 5. اجرای migrations
+
+php artisan migrate
+
+### 6. تولید مستندات Swagger
+
+php artisan l5-swagger:generate
+
+## 🧪 اجرای تست‌ها
+### اجرای تمام تست‌ها
+
+php artisan test
+
+
+### 📚 مستندات API
+
 دسترسی به مستندات Swagger
 پس از راه‌اندازی پروژه، مستندات API در آدرس زیر قابل دسترسی است:
 
-text
 http://localhost:8000/api/documentation
-تولید مجدد مستندات
-bash
+
+## تولید مجدد مستندات
+
 php artisan l5-swagger:generate
-🔌 Endpointهای API
-1. ایجاد مرسوله جدید
+
+## 🔌 Endpointهای API
+
+## 1. ایجاد مرسوله جدید
+
 Endpoint: POST /api/parcels
 
 Request Body:
@@ -129,7 +137,9 @@ json
     "updated_at": "2024-01-01 12:00:00"
   }
 }
-2. دریافت لیست مرسوله‌ها
+
+## 2. دریافت لیست مرسوله‌ها
+
 Endpoint: GET /api/parcels
 
 Query Parameters:
@@ -190,22 +200,28 @@ json
     "next": "http://localhost:8000/api/parcels?page=2"
   }
 }
-⚠️ کدهای خطا
+
+## ⚠️ کدهای خطا
+
 201 Created: مرسوله با موفقیت ایجاد شد
 
 422 Unprocessable Entity: خطای اعتبارسنجی داده‌ها
 
 404 Not Found: مرسوله یافت نشد
 
-🎯 تست با Postman
-1. راه‌اندازی سرور
-bash
+
+## 🎯 تست با Postman
+
+## 1. راه‌اندازی سرور
+
+
 php artisan serve
-2. نمونه درخواست‌ها
+
+## 2. نمونه درخواست‌ها
 درخواست ایجاد مرسوله:
 
-http
 POST http://localhost:8000/api/parcels
+
 Content-Type: application/json
 Accept: application/json
 
@@ -230,8 +246,10 @@ Accept: application/json
   },
   "tracking_code": "608850418600032250068114"
 }
-🗃 ساختار دیتابیس
-جداول
+
+## 🗃 ساختار دیتابیس
+## جداول
+
 people
 id (Primary Key)
 
@@ -264,7 +282,8 @@ tracking_code (کد رهگیری - Unique)
 
 timestamps
 
-🔒 اعتبارسنجی‌ها
+## 🔒 اعتبارسنجی‌ها
+
 کد رهگیری
 الزامی
 
@@ -291,8 +310,10 @@ timestamps
 
 ابعاد: بین 1 تا 200 سانتی‌متر
 
-🏗 معماری پروژه
-text
+
+## 🏗 معماری پروژه
+
+
 app/
 ├── Http/
 │   ├── Controllers/
@@ -319,40 +340,35 @@ database/
 └── factories/
     ├── ParcelFactory.php
     └── PersonFactory.php
-🚀 Deploy
-با استفاده از Sail (Docker)
-bash
-composer require laravel/sail --dev
-php artisan sail:install
-./vendor/bin/sail up
+	
+## 🚀 Deploy
+
 روی سرور معمولی
-bash
+
 # تنظیم permissions
+
 chmod -R 755 storage
 chmod -R 755 bootstrap/cache
 
 # Optimize
+
 php artisan optimize
 php artisan config:cache
 php artisan route:cache
 
 # Migration در production
+
 php artisan migrate --force
-🤝 مشارکت
-Fork the project
 
-Create your feature branch (git checkout -b feature/AmazingFeature)
 
-Commit your changes (git commit -m 'Add some AmazingFeature')
-
-Push to the branch (git push origin feature/AmazingFeature)
-
-Open a Pull Request
-
-📄 لایسنس
+## 📄 لایسنس
 این پروژه تحت لایسنس MIT منتشر شده است.
 
-📞 پشتیبانی
+## 📞 پشتیبانی
 اگر سوال یا مشکلی داشتید، لطفاً یک Issue در GitHub ایجاد کنید.
 
 توسعه داده شده با ❤️ و لاراول
+
+## Max Shirinzad
+
+
