@@ -41,11 +41,211 @@
                         "bearerAuth": []
                     }
                 ]
+            },
+            "post": {
+                "tags": [
+                    "Postal Packages"
+                ],
+                "summary": "Create a new postal package",
+                "operationId": "2d8913398e420dab45c64dd047235aea",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "sender",
+                                    "receiver",
+                                    "weight",
+                                    "dimensions"
+                                ],
+                                "properties": {
+                                    "sender": {
+                                        "required": [
+                                            "name",
+                                            "mobile",
+                                            "postal_code",
+                                            "address"
+                                        ],
+                                        "properties": {
+                                            "name": {
+                                                "type": "string",
+                                                "example": "علی رضایی"
+                                            },
+                                            "mobile": {
+                                                "type": "string",
+                                                "example": "09123456789"
+                                            },
+                                            "postal_code": {
+                                                "type": "string",
+                                                "example": "1234567890"
+                                            },
+                                            "address": {
+                                                "type": "string",
+                                                "example": "تهران، خیابان ولیعصر"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "receiver": {
+                                        "required": [
+                                            "name",
+                                            "mobile",
+                                            "postal_code",
+                                            "address"
+                                        ],
+                                        "properties": {
+                                            "name": {
+                                                "type": "string",
+                                                "example": "محمد حسینی"
+                                            },
+                                            "mobile": {
+                                                "type": "string",
+                                                "example": "09351234567"
+                                            },
+                                            "postal_code": {
+                                                "type": "string",
+                                                "example": "0987654321"
+                                            },
+                                            "address": {
+                                                "type": "string",
+                                                "example": "مشهد، بلوار وکیل آباد"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "weight": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 2.5
+                                    },
+                                    "dimensions": {
+                                        "required": [
+                                            "length",
+                                            "width",
+                                            "height"
+                                        ],
+                                        "properties": {
+                                            "length": {
+                                                "type": "number",
+                                                "format": "float",
+                                                "example": 30
+                                            },
+                                            "width": {
+                                                "type": "number",
+                                                "format": "float",
+                                                "example": 20
+                                            },
+                                            "height": {
+                                                "type": "number",
+                                                "format": "float",
+                                                "example": 15
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Parcel created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Parcel created successfully"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "tracking_code": {
+                                                    "type": "string",
+                                                    "example": "TRK170420234567"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2024-01-01 12:00:00"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Validation errors"
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "sender.mobile": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "فرمت شماره موبایل فرستنده صحیح نیست"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     },
     "components": {
         "schemas": {
+            "StorePostalPackageRequest": {
+                "required": [
+                    "name",
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "user1"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "example": "user1@example.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "format": "password",
+                        "example": "123123"
+                    },
+                    "image": {
+                        "type": "string",
+                        "example": "/users/images/user1.jpg"
+                    }
+                },
+                "type": "object"
+            },
             "PostalPackageResource": {
                 "properties": {
                     "id": {

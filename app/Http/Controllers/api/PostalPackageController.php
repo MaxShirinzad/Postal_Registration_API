@@ -81,9 +81,9 @@ class PostalPackageController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/api/parcels",
-     *     summary="Create a new parcel",
-     *     tags={"Parcels"},
+     *     path="/postal-packages",
+     *     summary="Create a new postal package",
+     *     tags={"Postal Packages"},
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(

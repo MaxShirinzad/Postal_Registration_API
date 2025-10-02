@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('postal_packages', function (Blueprint $table) {
             $table->Increments('id');
-            $table->unsignedInteger('user_id');
+            //$table->unsignedInteger('user_id');
 
             $table->unsignedInteger('sender_id');
             $table->unsignedInteger('receiver_id');
