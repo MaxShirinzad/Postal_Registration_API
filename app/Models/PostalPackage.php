@@ -17,7 +17,7 @@ class PostalPackage extends Model
         'length',
         'width',
         'height',
-        'postage',
+        //'postage',
         'tracking_code',
     ];
 
