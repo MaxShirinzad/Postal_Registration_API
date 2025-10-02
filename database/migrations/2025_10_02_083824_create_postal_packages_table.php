@@ -15,22 +15,21 @@ return new class extends Migration
             $table->Increments('id');
             $table->unsignedInteger('user_id');
 
-            $table->string('sender_name');
-            $table->string('sender_mobile');
-            $table->string('sender_postal_code');
-            $table->string('sender_address');
-            $table->string('receiver_name');
-            $table->string('receiver_mobile');
-            $table->string('receiver_postal_code');
-            $table->string('receiver_address');
-            $table->float('weight');
-            $table->float('length');
-            $table->float('width');
-            $table->float('height');
+            $table->foreignId('sender_id')->constrained('people');
+            $table->foreignId('receiver_id')->constrained('people');
+
+            $table->decimal('weight', 8, 2);
+            $table->decimal('length', 6, 2);
+            $table->decimal('width', 6, 2);
+            $table->decimal('height', 6, 2);
+            $table->bigInteger('postage')->default(0);
             $table->string('tracking_code')->unique()->nullable();
 
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index('tracking_code');
+            $table->index(['sender_id', 'receiver_id']);
         });
     }
 
